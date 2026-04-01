@@ -14,6 +14,7 @@ public class BaseTest {
         driver = new ChromeDriver();
         driver.get("https://sauce-demo.myshopify.com/");
     }
+
     @AfterMethod
     public void tearDown(){
         driver.quit();

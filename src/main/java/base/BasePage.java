@@ -12,10 +12,4 @@ public class BasePage {
     public String getPageTitle(){
         return driver.getTitle();
     }
-
-    private By greyJacket = By.linkText("Grey Jacket");
-    public void clickGreyJacket(){
-        driver.findElement(greyJacket).click();
-    }
-
 }

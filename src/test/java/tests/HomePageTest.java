@@ -12,6 +12,7 @@ public class HomePageTest extends BaseTest {
         String title = homePage.getPageTitle();
         Assert.assertEquals(title, "Sauce Demo");
     }
+
     @Test
     public void verifyProductPageTitle(){
         HomePage homePage = new HomePage(driver);
