@@ -19,7 +19,7 @@ public class SignUpPageTest extends BaseTest {
     //Can't run test due to hCaptcha
 
     @Test
-    public void successfulSignUp() throws InterruptedException {
+    public void ValidSignUp(){
         HomePage homePage = new HomePage(driver);
         SignUpPage signUpPage = new SignUpPage(driver);
         String email = "test" + System.currentTimeMillis() + "@yopmail.com";
@@ -29,8 +29,22 @@ public class SignUpPageTest extends BaseTest {
         signUpPage.enterEmail(email);
         signUpPage.enterPassword("Jones@123");
         signUpPage.createAccount();
-        Thread.sleep(1000);
         boolean logOutButtonExists = signUpPage.checkLogOutButtonExists();
         Assert.assertTrue(logOutButtonExists);
+    }
+
+    @Test
+    public void InvalidSignUp(){
+        HomePage homePage = new HomePage(driver);
+        SignUpPage signUpPage = new SignUpPage(driver);
+        String email = "test" + System.currentTimeMillis() + "@fakeemail.com";
+        homePage.goToSignUpPage();
+        signUpPage.enterFirstName("Tom");
+        signUpPage.enterLastName("Jones");
+        signUpPage.enterEmail(email);
+        signUpPage.enterPassword("w");
+        signUpPage.createAccount();
+        boolean logOutButtonExists = signUpPage.checkLogOutButtonExists();
+        Assert.assertFalse(logOutButtonExists);
     }
 }
