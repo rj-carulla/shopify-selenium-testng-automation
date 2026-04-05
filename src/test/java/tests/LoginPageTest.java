@@ -16,9 +16,10 @@ public class LoginPageTest extends BaseTest {
         Assert.assertEquals(title, "Account – Sauce Demo");
     }
 
-    //Can't run test due to hCaptcha
+    // Disabled: hCaptcha prevents automation in this public environment.
+    // In real-world scenarios, CAPTCHA is disabled or bypassed in test environments.
 
-    @Test
+    @Test(enabled = false)
     public void ValidSignIn(){
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -30,7 +31,7 @@ public class LoginPageTest extends BaseTest {
         Assert.assertTrue(logOutButtonExists);
     }
 
-    @Test
+    @Test(enabled = false)
     public void InvalidSignIn(){
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = new LoginPage(driver);
