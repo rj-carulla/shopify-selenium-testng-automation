@@ -9,9 +9,7 @@ import pages.LoginPage;
 public class LoginPageTest extends BaseTest {
     @Test
     public void verifyLoginPage(){
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        homePage.goToLoginPage();
+        LoginPage loginPage = navigateToLoginPage();
         String title = loginPage.getPageTitle();
         Assert.assertEquals(title, "Account – Sauce Demo");
     }
@@ -21,9 +19,7 @@ public class LoginPageTest extends BaseTest {
 
     @Test(enabled = false)
     public void ValidSignIn(){
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        homePage.goToLoginPage();
+        LoginPage loginPage = navigateToLoginPage();
         loginPage.enterEmail("TestMine@yopmail.com");
         loginPage.enterpassword("Test@123");
         loginPage.signIn();
@@ -33,9 +29,7 @@ public class LoginPageTest extends BaseTest {
 
     @Test(enabled = false)
     public void InvalidSignIn(){
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        homePage.goToLoginPage();
+        LoginPage loginPage = navigateToLoginPage();
         loginPage.enterEmail("Test");
         loginPage.enterpassword("Test123");
         loginPage.signIn();

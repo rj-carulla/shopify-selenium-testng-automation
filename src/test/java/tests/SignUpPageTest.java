@@ -9,9 +9,7 @@ import pages.SignUpPage;
 public class SignUpPageTest extends BaseTest {
     @Test
     public void verifySignUpPage(){
-        HomePage homePage = new HomePage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-        homePage.goToSignUpPage();
+        SignUpPage signUpPage = navigateToSignUpPage();
         String title = signUpPage.getPageTitle();
         Assert.assertEquals(title, "Create Account – Sauce Demo");
     }
@@ -21,10 +19,8 @@ public class SignUpPageTest extends BaseTest {
 
     @Test(enabled = false)
     public void ValidSignUp(){
-        HomePage homePage = new HomePage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
+        SignUpPage signUpPage = navigateToSignUpPage();
         String email = "test" + System.currentTimeMillis() + "@yopmail.com";
-        homePage.goToSignUpPage();
         signUpPage.enterFirstName("Tom");
         signUpPage.enterLastName("Jones");
         signUpPage.enterEmail(email);
@@ -36,10 +32,8 @@ public class SignUpPageTest extends BaseTest {
 
     @Test(enabled = false)
     public void InvalidSignUp(){
-        HomePage homePage = new HomePage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
+        SignUpPage signUpPage = navigateToSignUpPage();
         String email = "test" + System.currentTimeMillis() + "@fakeemail.com";
-        homePage.goToSignUpPage();
         signUpPage.enterFirstName("Tom");
         signUpPage.enterLastName("Jones");
         signUpPage.enterEmail(email);

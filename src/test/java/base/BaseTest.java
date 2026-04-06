@@ -6,6 +6,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.SignUpPage;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -19,4 +22,16 @@ public class BaseTest {
     public void tearDown(){
         driver.quit();
     }
+
+    public LoginPage navigateToLoginPage(){
+        HomePage homePage = new HomePage(driver);
+        homePage.goToLoginPage();
+        return new LoginPage(driver);
+    };
+
+    public SignUpPage navigateToSignUpPage(){
+        HomePage homePage = new HomePage(driver);
+        homePage.goToSignUpPage();
+        return new SignUpPage(driver);
+    };
 }
