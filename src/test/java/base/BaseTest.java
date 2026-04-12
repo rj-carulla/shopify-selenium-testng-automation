@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import pages.CatalogPage;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.SignUpPage;
@@ -33,5 +34,11 @@ public class BaseTest {
         HomePage homePage = new HomePage(driver);
         homePage.goToSignUpPage();
         return new SignUpPage(driver);
+    };
+
+    public CatalogPage navigateToCatalogPage(){
+        HomePage homePage = new HomePage(driver);
+        homePage.goToCatalogPage();
+        return new CatalogPage(driver);
     };
 }
