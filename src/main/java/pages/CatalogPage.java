@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 public class CatalogPage extends BasePage {
 
     //Locators
-    private By email = By.xpath("//input[@id='customer_email']");
 
     //Constructor
     public CatalogPage(WebDriver driver) {
@@ -15,8 +14,10 @@ public class CatalogPage extends BasePage {
     }
 
     //Actions
-    public void enterEmail(String testEmail){
-        driver.findElement(email).sendKeys(testEmail);
+    public void clickProduct(String productName){
+        By product = By.xpath("//h3[normalize-space()='" + productName + "']");
+        waitForElement(product);
+        driver.findElement(product).click();
     }
 
 }
