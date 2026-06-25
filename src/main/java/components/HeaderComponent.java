@@ -1,4 +1,27 @@
 package components;
 
-public class HeaderComponent {
+import base.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class HeaderComponent extends BasePage {
+    //Locators
+    private By cartButton = By.id("add");
+    private By cartCount = By.xpath("//span[@id='cart-target-mobile']");
+
+    //Constructor
+    public HeaderComponent(WebDriver driver) {
+        super(driver);
+    }
+
+    //Actions
+    public int getCartCount(){
+//        try {
+            String cartCountValue = driver.findElement(cartCount).getText();
+            cartCountValue = cartCountValue.replace("(", "").replace(")", "").trim();
+            return Integer.parseInt(cartCountValue);
+//        } catch (Exception e) {
+//            return 0;
+//        }
+    }
 }
