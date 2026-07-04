@@ -9,13 +9,12 @@ import pages.ProductPage;
 
 public class AddToCartTest extends BaseTest {
     @Test
-    public void addSingleProductToCartFromCatalogPage() throws InterruptedException {
+    public void addSingleProductToCartFromCatalogPage() {
         CatalogPage catalogPage = navigateToCatalogPage();
         catalogPage.clickProduct("Grey jacket");
         ProductPage productPage = new ProductPage(driver);
         productPage.addToCart();
         HeaderComponent headerComponent = new HeaderComponent(driver);
-        Thread.sleep(5000);
         int count = headerComponent.getCartCount();
         Assert.assertEquals(count, 1);
     }

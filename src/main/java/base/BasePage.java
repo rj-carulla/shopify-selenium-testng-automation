@@ -21,6 +21,11 @@ public class BasePage {
     public void waitForElement(By locator){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
+
+    public void waitForText(By locator, String expectedText){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(locator,expectedText));
     }
 }

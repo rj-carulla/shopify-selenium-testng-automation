@@ -16,12 +16,18 @@ public class HeaderComponent extends BasePage {
 
     //Actions
     public int getCartCount(){
-//        try {
+        try {
             String cartCountValue = driver.findElement(cartCount).getText();
             cartCountValue = cartCountValue.replace("(", "").replace(")", "").trim();
             return Integer.parseInt(cartCountValue);
-//        } catch (Exception e) {
-//            return 0;
-//        }
+        } catch (Exception e) {
+            return 0;
+        }
     }
+
+    public void waitForCartCount(int expectedCount) {
+        String expectedText = String.valueOf(expectedCount);
+        waitForText(cartCount, expectedText);
+    }
+
 }
