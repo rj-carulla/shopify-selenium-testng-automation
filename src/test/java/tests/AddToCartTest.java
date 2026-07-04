@@ -11,9 +11,9 @@ public class AddToCartTest extends BaseTest {
     @Test
     public void addOneToCartFromCatalogPage() {
         CatalogPage catalogPage = navigateToCatalogPage();
-        catalogPage.clickProduct("Grey jacket");
-        ProductPage productPage = new ProductPage(driver);
-        productPage.addToCart(1);
+        ProductPage product = catalogPage.clickProduct("Grey jacket");
+        product.addToCart(1);
+
         HeaderComponent headerComponent = new HeaderComponent(driver);
         int count = headerComponent.getCartCount();
         Assert.assertEquals(count, 1);
@@ -22,12 +22,14 @@ public class AddToCartTest extends BaseTest {
     @Test
     public void addTwoToCartFromCatalogPage() {
         CatalogPage catalogPage = navigateToCatalogPage();
-        catalogPage.clickProduct("Grey jacket");
-        ProductPage productPage = new ProductPage(driver);
-        productPage.addToCart(1);
-        productPage.goBack();
-        catalogPage.clickProduct("Bronze sandals");
-        productPage.addToCart(2);
+        ProductPage product = catalogPage.clickProduct("Grey jacket");
+        product.addToCart(1);
+
+        product.goBack();
+
+        product = catalogPage.clickProduct("Bronze sandals");
+        product.addToCart(2);
+
         HeaderComponent headerComponent = new HeaderComponent(driver);
         int count = headerComponent.getCartCount();
         Assert.assertEquals(count, 2);

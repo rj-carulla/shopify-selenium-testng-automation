@@ -14,11 +14,11 @@ public class CatalogPage extends BasePage {
     }
 
     //Actions
-    public void clickProduct(String productName){
+    public ProductPage clickProduct(String productName){
         By product = By.xpath("//h3[normalize-space()='" + productName + "']");
         waitForElement(product);
         driver.findElement(product).click();
-
+        return new ProductPage(driver);
     }
 
 }
