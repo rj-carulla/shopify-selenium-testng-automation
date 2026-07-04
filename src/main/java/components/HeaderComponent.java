@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class HeaderComponent extends BasePage {
     //Locators
     private By cartButton = By.id("add");
-    private By cartCount = By.xpath("//span[@id='cart-target-mobile']");
+    private By cartCount = By.xpath("//span[@class='count cart-target']");
 
     //Constructor
     public HeaderComponent(WebDriver driver) {
