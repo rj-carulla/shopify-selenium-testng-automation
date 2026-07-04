@@ -9,13 +9,27 @@ import pages.ProductPage;
 
 public class AddToCartTest extends BaseTest {
     @Test
-    public void addSingleProductToCartFromCatalogPage() {
+    public void addOneToCartFromCatalogPage() {
         CatalogPage catalogPage = navigateToCatalogPage();
         catalogPage.clickProduct("Grey jacket");
         ProductPage productPage = new ProductPage(driver);
-        productPage.addToCart();
+        productPage.addToCart(1);
         HeaderComponent headerComponent = new HeaderComponent(driver);
         int count = headerComponent.getCartCount();
         Assert.assertEquals(count, 1);
+    }
+
+    @Test
+    public void addTwoToCartFromCatalogPage() {
+        CatalogPage catalogPage = navigateToCatalogPage();
+        catalogPage.clickProduct("Grey jacket");
+        ProductPage productPage = new ProductPage(driver);
+        productPage.addToCart(1);
+        productPage.goBack();
+        catalogPage.clickProduct("Bronze sandals");
+        productPage.addToCart(2);
+        HeaderComponent headerComponent = new HeaderComponent(driver);
+        int count = headerComponent.getCartCount();
+        Assert.assertEquals(count, 2);
     }
 }

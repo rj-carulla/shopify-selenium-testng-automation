@@ -18,6 +18,7 @@ public class CatalogPage extends BasePage {
         By product = By.xpath("//h3[normalize-space()='" + productName + "']");
         waitForElement(product);
         driver.findElement(product).click();
+
     }
 
 }
