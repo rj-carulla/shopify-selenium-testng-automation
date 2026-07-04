@@ -24,5 +24,6 @@ public class ProductPage extends BasePage {
         driver.findElement(addToCartButton).click();
         String expectedText = String.valueOf(expectedCount);
         header.waitForCartCount(expectedCount);
+        waitForElementClick(addToCartButton);
     }
 }

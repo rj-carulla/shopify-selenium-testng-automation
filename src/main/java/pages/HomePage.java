@@ -18,8 +18,11 @@ public class HomePage extends BasePage {
     }
 
     //Actions
-    public void clickGreyJacket(){
-        driver.findElement(greyJacket).click();
+    public ProductPage clickProduct(String productName){
+        By product = By.xpath("//h3[normalize-space()='" + productName + "']");
+        waitForElement(product);
+        driver.findElement(product).click();
+        return new ProductPage(driver);
     }
 
     public void goToSignUpPage(){
