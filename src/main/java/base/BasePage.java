@@ -37,4 +37,7 @@ public class BasePage {
         driver.navigate().back();
     }
 
+    public void refresh(){
+        driver.navigate().refresh();
+    }
 }

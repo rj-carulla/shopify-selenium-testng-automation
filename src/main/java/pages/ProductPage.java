@@ -22,7 +22,7 @@ public class ProductPage extends BasePage {
     //Actions
     public void addToCart(int expectedCount){
         driver.findElement(addToCartButton).click();
-        String expectedText = String.valueOf(expectedCount);
+//        String expectedText = String.valueOf(expectedCount);
         header.waitForCartCount(expectedCount);
         waitForElementClick(addToCartButton);
     }
