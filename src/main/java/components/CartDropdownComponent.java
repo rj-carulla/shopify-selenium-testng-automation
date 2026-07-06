@@ -24,11 +24,24 @@ public class CartDropdownComponent extends BasePage {
         return driver.findElement(emptyCartMessage).getText();
     }
 
+//    public boolean isProductDisplayed(String productName) {
+//        String slug = productName.toLowerCase().replace(" ", "-");
+//        By product = By.xpath(".//a[contains(@href,'" + slug + "')]");
+//        By cartContainer = By.xpath("//div[@id='drawer']");
+//        WebElement cart = driver.findElement(cartContainer);
+//        return cart.findElement(product).isDisplayed();
+//    }
     public boolean isProductDisplayed(String productName) {
-        String slug = productName.toLowerCase().replace(" ", "-");
-        By product = By.xpath(".//a[contains(@href,'" + slug + "')]");
+
+        By product = By.xpath(".//a[contains(@href,'" + getSlug(productName) + "')]");
         By cartContainer = By.xpath("//div[@id='drawer']");
         WebElement cart = driver.findElement(cartContainer);
         return cart.findElement(product).isDisplayed();
+    }
+    public void removeProduct(){
+
+    }
+    private String getSlug(String productName){
+        return productName.toLowerCase().replace(" ", "-");
     }
 }
