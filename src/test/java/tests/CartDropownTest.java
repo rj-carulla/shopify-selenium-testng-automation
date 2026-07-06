@@ -27,4 +27,22 @@ public class CartDropownTest extends BaseTest {
         Assert.assertEquals(header.getCartCount(), 1);
     }
 
+    @Test
+    public void verifyDisplayMultipleProductsInCart(){
+        CatalogPage catalogPage = navigateToCatalogPage();
+        ProductPage productPage = catalogPage.clickProduct("Grey jacket");
+        productPage.addToCart(1);
+
+        productPage.goBack();
+
+        productPage = catalogPage.clickProduct("Bronze sandals");
+        productPage.addToCart(2);
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartDropdownComponent cartDropdown = header.openCart();
+        Assert.assertTrue(cartDropdown.isProductDisplayed("Grey Jacket"));
+        Assert.assertTrue(cartDropdown.isProductDisplayed("Bronze sandals"));
+        Assert.assertEquals(header.getCartCount(), 2);
+    }
+
 }
