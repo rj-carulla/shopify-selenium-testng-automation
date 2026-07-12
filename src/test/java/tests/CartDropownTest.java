@@ -45,4 +45,44 @@ public class CartDropownTest extends BaseTest {
         Assert.assertEquals(header.getCartCount(), 2);
     }
 
+    @Test
+    public void verifyRemoveProduct(){
+        CatalogPage catalogPage = navigateToCatalogPage();
+        ProductPage productPage = catalogPage.clickProduct("Grey jacket");
+        productPage.addToCart(1);
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartDropdownComponent cartDropdown = header.openCart();
+
+        cartDropdown.removeProduct("Grey jacket");
+
+        Assert.assertEquals(cartDropdown.getEmptyCartMessage(),"Your cart is empty.");
+        Assert.assertEquals(header.getCartCount(), 0);
+    }
+
+    @Test
+    public void verifyRemoveOnlySelectedProduct(){
+        CatalogPage catalogPage = navigateToCatalogPage();
+        ProductPage productPage = catalogPage.clickProduct("Grey jacket");
+        productPage.addToCart(1);
+
+        productPage.goBack();
+
+        productPage = catalogPage.clickProduct("Bronze sandals");
+        productPage.addToCart(2);
+
+        productPage.goBack();
+
+        productPage = catalogPage.clickProduct("Striped top");
+        productPage.addToCart(3);
+
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartDropdownComponent cartDropdown = header.openCart();
+
+        cartDropdown.removeProduct("Grey jacket");
+
+        Assert.assertFalse(cartDropdown.isProductDisplayed("Grey jacket"));
+        Assert.assertEquals(header.getCartCount(), 2);
+    }
 }
