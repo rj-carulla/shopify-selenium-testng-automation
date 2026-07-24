@@ -39,6 +39,7 @@ public class BasePage {
         wait.until(ExpectedConditions.stalenessOf(element));
     }
 
+
     public void goBack(){
         driver.navigate().back();
     }
