@@ -14,6 +14,7 @@ public class CartDropdownComponent extends BasePage {
     //Locators
     private By emptyCartMessage = By.xpath("//p[@class='empty']");
     private By cartDrawer = By.xpath("//div[@id='drawer']");
+    private By checkoutButton = By.xpath("(//input[@value='Check Out'])[1]");
 
     //Constructor
     public CartDropdownComponent(WebDriver driver) {
@@ -81,4 +82,12 @@ public class CartDropdownComponent extends BasePage {
         return Double.parseDouble(productPriceText.replace("£",""));
     }
 
+    public CartPage goToCheckoutPage(){
+        driver.findElement(checkoutButton).click();
+        return new CartPage(driver);
+    }
+
+    public boolean isCheckoutButtonDisplayed() {
+        return !driver.findElements(checkoutButton).isEmpty();
+    }
 }

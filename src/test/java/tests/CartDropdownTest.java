@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.CatalogPage;
+import pages.HomePage;
 import pages.ProductPage;
 
 public class CartDropdownTest extends BaseTest {
@@ -15,6 +16,7 @@ public class CartDropdownTest extends BaseTest {
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
     Assert.assertEquals(cartDropdown.getEmptyCartMessage(), "Your cart is empty.");
+    Assert.assertFalse(cartDropdown.isCheckoutButtonDisplayed());
   }
 
   @Test
@@ -108,5 +110,17 @@ public class CartDropdownTest extends BaseTest {
     Assert.assertEquals(total, quantity * price);
   }
 
+  @Test
+  public void verifyCheckoutNavigation(){
+    CatalogPage catalogPage = navigateToCatalogPage();
+    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
+    productPage.addToCart(1);
+
+    HeaderComponent header = new HeaderComponent(driver);
+    CartDropdownComponent cartDropdown = header.openCart();
+    CartPage cartPage = cartDropdown.goToCheckoutPage();
+
+    Assert.assertEquals(cartPage.getPageTitle(), "Your Shopping Cart – Sauce Demo");
+  }
 
 }
