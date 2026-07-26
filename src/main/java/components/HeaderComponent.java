@@ -3,12 +3,14 @@ package components;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.CartPage;
 
 public class HeaderComponent extends BasePage {
     //Locators
     private By cartCount = By.xpath("//span[@class='count cart-target']");
     private By cartButton = By.xpath("//a[@class='toggle-drawer cart desktop ']");
     private By cartDrawer = By.xpath("//div[@id='drawer']");
+    private By checkoutButton = By.xpath("//a[normalize-space()='Check Out']");
 
     //Constructor
     public HeaderComponent(WebDriver driver) {
@@ -37,6 +39,11 @@ public class HeaderComponent extends BasePage {
         driver.findElement(cartButton).click();
         waitForElement(cartDrawer);
         return new CartDropdownComponent(driver);
+    }
+
+    public CartPage navigateToCartPage(){
+        driver.findElement(checkoutButton).click();
+        return new CartPage(driver);
     }
 
 }

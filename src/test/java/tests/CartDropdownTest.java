@@ -12,7 +12,7 @@ import pages.ProductPage;
 
 public class CartDropdownTest extends BaseTest {
   @Test
-  public void verifyCartEmpty() {
+  public void verifyEmptyCart() {
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
     Assert.assertEquals(cartDropdown.getEmptyCartMessage(), "Your cart is empty.");
