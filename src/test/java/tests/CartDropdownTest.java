@@ -22,8 +22,7 @@ public class CartDropdownTest extends BaseTest {
   @Test
   public void verifyDisplayOneProductInCart() {
     CatalogPage catalogPage = navigateToCatalogPage();
-    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
-    productPage.addToCart(1);
+    addProductsToCart("Grey jacket");
 
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
@@ -34,17 +33,12 @@ public class CartDropdownTest extends BaseTest {
   @Test
   public void verifyDisplayMultipleProductsInCart() {
     CatalogPage catalogPage = navigateToCatalogPage();
-    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
-    productPage.addToCart(1);
 
-    productPage.goBack();
-
-    productPage = catalogPage.clickProduct("Bronze sandals");
-    productPage.addToCart(2);
+    addProductsToCart("Grey jacket", "Bronze sandals");
 
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
-    Assert.assertTrue(cartDropdown.isProductDisplayed("Grey Jacket"));
+    Assert.assertTrue(cartDropdown.isProductDisplayed("Grey jacket"));
     Assert.assertTrue(cartDropdown.isProductDisplayed("Bronze sandals"));
     Assert.assertEquals(header.getCartCount(), 2);
   }
@@ -52,8 +46,8 @@ public class CartDropdownTest extends BaseTest {
   @Test
   public void verifyRemoveProduct() {
     CatalogPage catalogPage = navigateToCatalogPage();
-    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
-    productPage.addToCart(1);
+
+    addProductsToCart("Grey jacket");
 
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
@@ -67,18 +61,8 @@ public class CartDropdownTest extends BaseTest {
   @Test
   public void verifyRemoveOnlySelectedProduct() {
     CatalogPage catalogPage = navigateToCatalogPage();
-    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
-    productPage.addToCart(1);
 
-    productPage.goBack();
-
-    productPage = catalogPage.clickProduct("Bronze sandals");
-    productPage.addToCart(2);
-
-    productPage.goBack();
-
-    productPage = catalogPage.clickProduct("Striped top");
-    productPage.addToCart(3);
+    addProductsToCart("Grey jacket","Bronze sandals","Striped top"  );
 
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
@@ -92,8 +76,8 @@ public class CartDropdownTest extends BaseTest {
   @Test
   public void verifyEditProductQuantity() {
     CatalogPage catalogPage = navigateToCatalogPage();
-    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
-    productPage.addToCart(1);
+
+    addProductsToCart("Grey jacket");
 
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();
@@ -113,8 +97,8 @@ public class CartDropdownTest extends BaseTest {
   @Test
   public void verifyCheckoutNavigation(){
     CatalogPage catalogPage = navigateToCatalogPage();
-    ProductPage productPage = catalogPage.clickProduct("Grey jacket");
-    productPage.addToCart(1);
+
+    addProductsToCart("Grey jacket");
 
     HeaderComponent header = new HeaderComponent(driver);
     CartDropdownComponent cartDropdown = header.openCart();

@@ -41,9 +41,8 @@ public class HeaderComponent extends BasePage {
         return new CartDropdownComponent(driver);
     }
 
-    public CartPage navigateToCartPage(){
+    public void navigateToCartPage(){
         driver.findElement(checkoutButton).click();
-        return new CartPage(driver);
     }
 
 }
