@@ -42,21 +42,6 @@ public class BaseTest {
         return new CatalogPage(driver);
     };
 
-//    protected CartPage addProductsToCart(String... productNames) { CatalogPage catalogPage = navigateToCatalogPage();
-//        ProductPage productPage;
-//
-//        for (int i = 0; i < productNames.length; i++ ){
-//            productPage = catalogPage.clickProduct(productNames[i]);
-//            productPage.addToCart(i + 1);
-//            if (i < productNames.length - 1){
-//                productPage.goBack();
-//            }
-//
-//        }
-//
-//        return new CartPage(driver);
-//    }
-
     protected void addProductsToCart(String... productNames) {
         CatalogPage catalogPage = navigateToCatalogPage();
         ProductPage productPage;
@@ -70,4 +55,5 @@ public class BaseTest {
 
         }
     }
+
 }
