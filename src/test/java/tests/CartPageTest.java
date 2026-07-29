@@ -70,4 +70,22 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price3 * quantity3, total3);
 
     }
+    @Test
+    public void verifyIncreaseProductQuantity(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        cartPage.updateProductQuantity(3, "Grey jacket");
+
+        double price = cartPage.getProductPrice("Grey jacket");
+        int quantity = cartPage.getProductQuantity("Grey jacket");
+        double total = cartPage.getProductTotal("Grey jacket");
+
+        Assert.assertTrue(cartPage.isProductDisplayed("Grey Jacket"));
+        Assert.assertEquals(price, 55);
+        Assert.assertEquals(quantity, 3);
+        Assert.assertEquals(price * quantity, total);
+    }
 }
