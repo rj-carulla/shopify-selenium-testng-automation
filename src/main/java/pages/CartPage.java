@@ -68,7 +68,7 @@ public class CartPage extends BasePage {
         productQuantityInput.sendKeys(quantityText);
         productQuantityInput.sendKeys(Keys.ENTER);
 
-        double expectedTotal = getProductTotal(productName) * quantity;
+        double expectedTotal = getProductPrice(productName) * quantity;
 
         waitForProductTotalUpdate(productName, expectedTotal);
 

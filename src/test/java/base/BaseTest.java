@@ -56,4 +56,14 @@ public class BaseTest {
         }
     }
 
+    protected void addSameProductToCart(String productName, int quantity) {
+        CatalogPage catalogPage = navigateToCatalogPage();
+        ProductPage productPage;
+
+        productPage = catalogPage.clickProduct(productName);
+        for (int i = 0; i < quantity; i++  ){
+            productPage.addToCart(i);
+        }
+    }
+
 }

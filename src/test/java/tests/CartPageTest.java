@@ -88,4 +88,24 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(quantity, 3);
         Assert.assertEquals(price * quantity, total);
     }
+
+    @Test
+    public void verifyDecreaseProductQuantity(){
+
+        addSameProductToCart("Bronze sandals", 3);
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        cartPage.updateProductQuantity(2, "Bronze sandals");
+
+        double price = cartPage.getProductPrice("Bronze sandals");
+        int quantity = cartPage.getProductQuantity("Bronze sandals");
+        double total = cartPage.getProductTotal("Bronze sandals");
+
+        Assert.assertTrue(cartPage.isProductDisplayed("Bronze sandals"));
+        Assert.assertEquals(price, 39.99);
+        Assert.assertEquals(quantity, 2);
+        Assert.assertEquals(price * quantity, total);
+    }
 }
