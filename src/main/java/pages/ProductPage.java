@@ -26,4 +26,10 @@ public class ProductPage extends BasePage {
         header.waitForCartCount(expectedCount);
         waitForElementClick(addToCartButton);
     }
+    public void addToCart(){
+        int currentCartCount = header.getCartCount();
+        driver.findElement(addToCartButton).click();
+        header.waitForCartCount(currentCartCount + 1);
+        waitForElementClick(addToCartButton);
+    }
 }

@@ -10,6 +10,9 @@ import pages.CartPage;
 import java.sql.Driver;
 
 public class CartPageTest extends BaseTest {
+
+    // Display Tests
+
     @Test
     public void verifyEmptyCart(){
         HeaderComponent header = new HeaderComponent(driver);
@@ -70,6 +73,9 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price3 * quantity3, total3);
 
     }
+
+    //Quantity Tests
+
     @Test
     public void verifyIncreaseProductQuantity(){
         addProductsToCart("Grey jacket");
@@ -107,5 +113,36 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price, 39.99);
         Assert.assertEquals(quantity, 2);
         Assert.assertEquals(price * quantity, total);
+    }
+
+    @Test
+    public void verifyUpdateMultipleProductQuantities(){
+
+        addProductsToCart("Grey jacket");
+        addSameProductToCart("Bronze sandals", 3);
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        cartPage.updateProductQuantity(3, "Grey jacket");
+        cartPage.updateProductQuantity(2, "Bronze sandals");
+
+        double price1 = cartPage.getProductPrice("Grey jacket");
+        int quantity1 = cartPage.getProductQuantity("Grey jacket");
+        double total1 = cartPage.getProductTotal("Grey jacket");
+
+        double price2 = cartPage.getProductPrice("Bronze sandals");
+        int quantity2 = cartPage.getProductQuantity("Bronze sandals");
+        double total2 = cartPage.getProductTotal("Bronze sandals");
+
+        Assert.assertTrue(cartPage.isProductDisplayed("Grey jacket"));
+        Assert.assertEquals(price1, 55);
+        Assert.assertEquals(quantity1, 3);
+        Assert.assertEquals(price1 * quantity1, total1);
+
+        Assert.assertTrue(cartPage.isProductDisplayed("Bronze sandals"));
+        Assert.assertEquals(price2, 39.99);
+        Assert.assertEquals(quantity2, 2);
+        Assert.assertEquals(price2 * quantity2, total2);
     }
 }

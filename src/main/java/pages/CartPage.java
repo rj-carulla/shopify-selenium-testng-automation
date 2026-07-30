@@ -71,6 +71,8 @@ public class CartPage extends BasePage {
         double expectedTotal = getProductPrice(productName) * quantity;
 
         waitForProductTotalUpdate(productName, expectedTotal);
+        //added this wait cloudflare
+        waitForProductQuantityUpdate(productName, quantity);
 
     }
 
@@ -78,6 +80,13 @@ public class CartPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(driver ->
                 Double.compare(getProductTotal(productName), expectedTotal) == 0
+        );
+    }
+
+    protected void waitForProductQuantityUpdate(String productName, int quantity) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(driver ->
+                getProductQuantity(productName) == quantity
         );
     }
 

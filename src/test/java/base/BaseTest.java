@@ -59,11 +59,13 @@ public class BaseTest {
     protected void addSameProductToCart(String productName, int quantity) {
         CatalogPage catalogPage = navigateToCatalogPage();
         ProductPage productPage;
+        HeaderComponent header = new HeaderComponent(driver);
 
         productPage = catalogPage.clickProduct(productName);
         for (int i = 0; i < quantity; i++  ){
-            productPage.addToCart(i);
+            productPage.addToCart();
         }
+        productPage.goBack();
     }
 
 }
