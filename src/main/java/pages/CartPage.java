@@ -16,6 +16,7 @@ public class CartPage extends BasePage {
     private By cartHeading = By.xpath("//h1[normalize-space()='My Cart']");
     private By cartContainer = By.xpath("//section[@id='cart']");
     private By eMessage = By.xpath("//div[@id='main']//p[1]");
+    private By removeButton = By.linkText("x");
 
     //Constructor
     public CartPage(WebDriver driver) {
@@ -74,6 +75,12 @@ public class CartPage extends BasePage {
         //added this wait cloudflare
         waitForProductQuantityUpdate(productName, quantity);
 
+    }
+
+    public void removeProduct(String productName){
+        WebElement row = getRow(productName);
+        row.findElement(removeButton).click();
+        waitForDelete(row);
     }
 
     protected void waitForProductTotalUpdate(String productName, double expectedTotal) {

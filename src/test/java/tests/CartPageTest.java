@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import components.CartDropdownComponent;
 import components.HeaderComponent;
 import org.openqa.selenium.bidi.network.Header;
 import org.testng.Assert;
@@ -144,5 +145,18 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price2, 39.99);
         Assert.assertEquals(quantity2, 2);
         Assert.assertEquals(price2 * quantity2, total2);
+    }
+
+    //Remove Product Tests
+
+    @Test
+    public void removeSingleProduct(){
+        addProductsToCart("Bronze sandals", "Striped top", "Grey jacket");
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        cartPage.removeProduct("Bronze sandals");
+
+        Assert.assertFalse(cartPage.isProductDisplayed("Bronze sandals"));
     }
 }
