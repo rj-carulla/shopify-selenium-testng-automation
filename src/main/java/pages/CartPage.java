@@ -17,6 +17,7 @@ public class CartPage extends BasePage {
     private By cartContainer = By.xpath("//section[@id='cart']");
     private By eMessage = By.xpath("//div[@id='main']//p[1]");
     private By removeButton = By.linkText("x");
+    private By cartSubtotal = By.xpath("//div[contains(@class,'cart') and contains(@class,'total')]/h2");
 
     //Constructor
     public CartPage(WebDriver driver) {
@@ -57,6 +58,11 @@ public class CartPage extends BasePage {
         WebElement row = getRow(productName);
         WebElement productQuantityInput = row.findElement(By.name("updates[]"));
         return Integer.parseInt(productQuantityInput.getAttribute("value"));
+    }
+
+    public  double getCartSubtotal(){
+        String subtotal = driver.findElement(cartSubtotal).getText();
+        return Double.parseDouble(subtotal.substring(7));
     }
 
     public void updateProductQuantity(int quantity, String productName){

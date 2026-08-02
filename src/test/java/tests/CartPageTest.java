@@ -36,6 +36,7 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price, 55.00);
         Assert.assertEquals(quantity, 1);
         Assert.assertEquals(price * quantity, total);
+        Assert.assertEquals(cartPage.getCartSubtotal(), total);
     }
 
     @Test
@@ -57,6 +58,8 @@ public class CartPageTest extends BaseTest {
         int quantity3 = cartPage.getProductQuantity("Striped top");
         double total3 = cartPage.getProductTotal("Striped top");
 
+        double subtotal = total1 + total2 + total3;
+
         Assert.assertTrue(cartPage.isProductDisplayed("Grey Jacket"));
         Assert.assertEquals(price1, 55.00);
         Assert.assertEquals(quantity1, 1);
@@ -73,6 +76,7 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(quantity3, 1);
         Assert.assertEquals(price3 * quantity3, total3);
 
+        Assert.assertEquals(cartPage.getCartSubtotal(), subtotal);
     }
 
     //Quantity Tests
@@ -94,6 +98,8 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price, 55);
         Assert.assertEquals(quantity, 3);
         Assert.assertEquals(price * quantity, total);
+        Assert.assertEquals(cartPage.getCartSubtotal(), total);
+
     }
 
     @Test
@@ -114,6 +120,7 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price, 39.99);
         Assert.assertEquals(quantity, 2);
         Assert.assertEquals(price * quantity, total);
+        Assert.assertEquals(cartPage.getCartSubtotal(), total);
     }
 
     @Test
@@ -136,6 +143,8 @@ public class CartPageTest extends BaseTest {
         int quantity2 = cartPage.getProductQuantity("Bronze sandals");
         double total2 = cartPage.getProductTotal("Bronze sandals");
 
+        double subtotal = total1 + total2;
+
         Assert.assertTrue(cartPage.isProductDisplayed("Grey jacket"));
         Assert.assertEquals(price1, 55);
         Assert.assertEquals(quantity1, 3);
@@ -145,6 +154,8 @@ public class CartPageTest extends BaseTest {
         Assert.assertEquals(price2, 39.99);
         Assert.assertEquals(quantity2, 2);
         Assert.assertEquals(price2 * quantity2, total2);
+
+        Assert.assertEquals(cartPage.getCartSubtotal(), Math.round(subtotal * 100.0)/100.0);
     }
 
     //Remove Product Tests
