@@ -10,7 +10,6 @@ public class HomePage extends BasePage {
     private By signUpButton = By.id("customer_register_link");
     private By loginButton = By.id("customer_login_link");
     private By CatalogButton = By.linkText("Catalog");
-    private By greyJacket = By.xpath("//h3[normalize-space()='Grey jacket']");
 
     //Constructor
     public HomePage(WebDriver driver) {

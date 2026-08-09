@@ -3,11 +3,14 @@ package components;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.CartPage;
 
 public class HeaderComponent extends BasePage {
     //Locators
-    private By cartButton = By.id("add");
     private By cartCount = By.xpath("//span[@class='count cart-target']");
+    private By cartButton = By.xpath("//a[@class='toggle-drawer cart desktop ']");
+    private By cartDrawer = By.xpath("//div[@id='drawer']");
+    private By checkoutButton = By.xpath("//a[normalize-space()='Check Out']");
 
     //Constructor
     public HeaderComponent(WebDriver driver) {
@@ -28,6 +31,19 @@ public class HeaderComponent extends BasePage {
     public void waitForCartCount(int expectedCount) {
         String expectedText = String.valueOf(expectedCount);
         waitForText(cartCount, expectedText);
+    }
+
+
+    public CartDropdownComponent openCart(){
+        driver.navigate().refresh();
+        driver.findElement(cartButton).click();
+        waitForElement(cartDrawer);
+        return new CartDropdownComponent(driver);
+    }
+
+    public CartPage navigateToCartPage(){
+        driver.findElement(checkoutButton).click();
+        return new CartPage(driver);
     }
 
 }

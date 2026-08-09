@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,9 +33,24 @@ public class BasePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(locator,expectedText));
     }
+    public void waitForText(WebElement element, String expectedText){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.textToBePresentInElement(element,expectedText));
+    }
+
+
+
+    public void waitForDelete(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.stalenessOf(element));
+    }
+
 
     public void goBack(){
         driver.navigate().back();
     }
 
+    public void refresh(){
+        driver.navigate().refresh();
+    }
 }
