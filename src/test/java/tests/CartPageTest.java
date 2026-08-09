@@ -7,6 +7,7 @@ import org.openqa.selenium.bidi.network.Header;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CartPage;
+import pages.CheckoutPage;
 
 import java.sql.Driver;
 
@@ -168,6 +169,63 @@ public class CartPageTest extends BaseTest {
 
         cartPage.removeProduct("Bronze sandals");
 
+        double total1 = cartPage.getProductTotal("Striped top");
+        double total2 = cartPage.getProductTotal("Grey jacket");
+        double subtotal = total1 + total2;
+
         Assert.assertFalse(cartPage.isProductDisplayed("Bronze sandals"));
+        Assert.assertTrue(cartPage.isProductDisplayed("Grey jacket"));
+        Assert.assertTrue(cartPage.isProductDisplayed("Striped top"));
+
+        Assert.assertEquals(cartPage.getCartSubtotal(),Math.round(subtotal * 100.0)/100.0 );
+        Assert.assertEquals(header.getCartCount(), 2);
+    }
+
+    @Test
+    public void removeMultipleProducts(){
+        addProductsToCart("Bronze sandals", "Striped top", "Grey jacket");
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        cartPage.removeProduct("Bronze sandals");
+        cartPage.removeProduct("Grey jacket");
+
+
+        Assert.assertFalse(cartPage.isProductDisplayed("Bronze sandals"));
+        Assert.assertFalse(cartPage.isProductDisplayed("Grey jacket"));
+        Assert.assertTrue(cartPage.isProductDisplayed("Striped top"));
+
+        Assert.assertEquals(cartPage.getCartSubtotal(),cartPage.getProductTotal("Striped top"));
+        Assert.assertEquals(header.getCartCount(), 1);
+    }
+
+    @Test
+    public void removeAllProducts(){
+        addProductsToCart("Bronze sandals", "Striped top", "Grey jacket");
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        cartPage.removeProduct("Bronze sandals");
+        cartPage.removeProduct("Grey jacket");
+        cartPage.removeProduct("Striped top");
+
+
+        Assert.assertFalse(cartPage.isProductDisplayed("Bronze sandals"));
+        Assert.assertFalse(cartPage.isProductDisplayed("Grey jacket"));
+        Assert.assertFalse(cartPage.isProductDisplayed("Striped top"));
+
+        Assert.assertEquals(cartPage.getEmptyCartMessage(), "It appears that your cart is currently empty! Continue Shopping.");
+        Assert.assertEquals(header.getCartCount(), 0);
+    }
+
+    @Test
+    public void verifyNavigateToCheckout(){
+        addProductsToCart("Bronze sandals");
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        Assert.assertEquals(checkoutPage.getPageTitle(), "Checkout - Sauce Demo");
     }
 }

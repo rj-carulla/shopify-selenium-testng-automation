@@ -18,6 +18,7 @@ public class CartPage extends BasePage {
     private By eMessage = By.xpath("//div[@id='main']//p[1]");
     private By removeButton = By.linkText("x");
     private By cartSubtotal = By.xpath("//div[contains(@class,'cart') and contains(@class,'total')]/h2");
+    private By checkoutButton = By.xpath("//input[@id='checkout']");
 
     //Constructor
     public CartPage(WebDriver driver) {
@@ -87,6 +88,11 @@ public class CartPage extends BasePage {
         WebElement row = getRow(productName);
         row.findElement(removeButton).click();
         waitForDelete(row);
+    }
+
+    public CheckoutPage navigateToCheckout(){
+        driver.findElement(checkoutButton).click();
+        return new CheckoutPage(driver);
     }
 
     protected void waitForProductTotalUpdate(String productName, double expectedTotal) {
