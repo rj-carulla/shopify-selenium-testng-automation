@@ -68,4 +68,11 @@ public class BaseTest {
         productPage.goBack();
     }
 
+
+    public void enterShippingInformation(CheckoutPage checkoutPage){
+        checkoutPage.selectCountry("United Kingdom");
+        checkoutPage.enterFirstName("James");
+        checkoutPage.enterLastName("Bond");
+        checkoutPage.enterCompany("MI6");
+    }
 }
