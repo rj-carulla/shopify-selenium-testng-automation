@@ -5,9 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class CheckoutPage extends BasePage {
     //Locators
-//    private By
+    private By productsContainer = By.xpath("//div[@class='_4QenE']//aside");
+    private By productTotal = By.xpath(".//span[contains(normalize-space(), '£')]");
 
     //Constructor
     public CheckoutPage(WebDriver driver) {
@@ -15,5 +18,44 @@ public class CheckoutPage extends BasePage {
     }
 
     //Actions
+    public boolean isProductDisplayed(String productName) {
+        By product = By.xpath(
+                ".//p[normalize-space()='" + productName + "']"
+        );
+        WebElement container = driver.findElement(productsContainer);
+        return !container.findElements(product).isEmpty();
+    }
 
+    public double getProductTotal(String productName){
+        WebElement row = getRow(productName);
+        String total = row.findElement(productTotal).getText();
+        System.out.println(total);
+        return Double.parseDouble(total.replace("£", ""));
+    }
+
+    public double getSubtotal(){
+        WebElement container = driver.findElement(productsContainer);
+        WebElement subtotalRow = container.findElement(
+                By.xpath(
+                        ".//*[@role='row'][.//*[@role='rowheader'][contains(normalize-space(), 'Subtotal')]]"
+                )
+        );
+
+        String subtotal = subtotalRow
+                .findElement(By.xpath(".//*[@role='cell']//span[contains(normalize-space(), '£')]"))
+                .getText();
+        System.out.println(subtotal);
+        return Double.parseDouble(subtotal.replace("£", ""));
+    }
+
+
+    public WebElement getRow(String productName) {
+        WebElement container = driver.findElement(productsContainer);
+        return container.findElement(
+                By.xpath(
+                        ".//div[@role='row'][.//p[normalize-space()='"
+                                + productName + "']]"
+                )
+        );
+    }
 }
