@@ -1,7 +1,9 @@
 package base;
 
 import components.HeaderComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
@@ -74,5 +76,9 @@ public class BaseTest {
         checkoutPage.enterFirstName("James");
         checkoutPage.enterLastName("Bond");
         checkoutPage.enterCompany("MI6");
+        checkoutPage.enterAddress("76 Essex Rd, Tatterford, NR21 2UL");
+        checkoutPage.enterCity("Tatterford");
+        checkoutPage.enterPostalCode("NR21 2UL");
+        checkoutPage.waitForElement(By.xpath("//fieldset[@id='shipping_methods']"));
     }
 }

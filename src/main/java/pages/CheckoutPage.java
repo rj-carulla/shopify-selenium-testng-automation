@@ -14,9 +14,16 @@ public class CheckoutPage extends BasePage {
     private By productTotal = By.xpath(".//span[contains(normalize-space(), '£')]");
     private By countryDropdown = By.xpath("//select[@name='countryCode']");
 
+    private By shippingFeeLeft = By.xpath("//*[normalize-space()='Standard Shipping']" +
+            "/ancestor::div[.//strong[normalize-space()='Standard Shipping']][1]" +
+            "//*[contains(@id, '-secondary')]//strong");
+
     private By firstNameField = By.xpath("//input[@name='firstName']");
     private By lastNameField = By.xpath("//input[@name='lastName']");
     private By companyField = By.xpath("//input[@name='company']");
+    private By addressField = By.xpath("//input[@id='shipping-address1']");
+    private By cityField = By.xpath("//input[@name='city']");
+    private By postcodeField = By.xpath("//input[@name='postalCode']");
 
     //Constructor
     public CheckoutPage(WebDriver driver) {
@@ -52,7 +59,62 @@ public class CheckoutPage extends BasePage {
         return Double.parseDouble(subtotal.replace("£", ""));
     }
 
+    public double getShippingFeeRight(String expectedShipping) {
+        WebElement container = driver.findElement(productsContainer);
 
+        WebElement shippingRow = container.findElement(
+                By.xpath(
+                        ".//*[@role='row'][.//*[@role='rowheader'][contains(normalize-space(), 'Shipping')]]"
+                )
+        );
+
+        waitForText(shippingRow, expectedShipping);
+
+        WebElement shippingElement = shippingRow.findElement(
+            By.xpath(".//*[@role='cell']/span[last()]")
+        );
+
+        String shipping = shippingElement.getText();
+
+        return Double.parseDouble(shipping.replace("£", "").trim());
+    }
+
+    public double getShippingFeeLeft(){
+        String shippingfee = driver.findElement(shippingFeeLeft).getText();
+        return Double.parseDouble(shippingfee.replace("£", ""));
+    }
+
+//    public double getTotal(){
+//        WebElement container = driver.findElement(productsContainer);
+//        WebElement TotalRow = container.findElement(
+//                By.xpath(
+//                        ".//*[@role='row'][.//*[@role='rowheader'][contains(normalize-space(), 'Total')]]"
+//                )
+//        );
+//
+//        String total = TotalRow
+//                .findElement(By.xpath(".//*[@role='cell']//span[contains(normalize-space(), '£')]"))
+//                .getText();
+//        System.out.println(total);
+//        return Double.parseDouble(total.replace("£", ""));
+//    }
+    public double getTotal() {
+        WebElement container = driver.findElement(productsContainer);
+
+        WebElement totalRow = container.findElement(
+                By.xpath(
+                        ".//*[@role='row'][.//*[@role='rowheader'][contains(normalize-space(), 'Total')]]"
+                )
+        );
+
+        WebElement totalElement = totalRow.findElement(
+                By.xpath(".//*[@role='cell']//strong[last()]")
+        );
+
+        String total = totalElement.getText();
+
+        return Double.parseDouble(total.replace("£", "").trim());
+    }
     public WebElement getRow(String productName) {
         WebElement container = driver.findElement(productsContainer);
         return container.findElement(
@@ -81,5 +143,17 @@ public class CheckoutPage extends BasePage {
 
     public void enterCompany(String company){
         driver.findElement(companyField).sendKeys(company);
+    }
+
+    public void enterAddress(String address){
+        driver.findElement(addressField).sendKeys(address);
+    }
+
+    public void enterCity(String city){
+        driver.findElement(cityField).sendKeys(city);
+    }
+
+    public void enterPostalCode(String postcode){
+        driver.findElement(postcodeField).sendKeys(postcode);
     }
 }

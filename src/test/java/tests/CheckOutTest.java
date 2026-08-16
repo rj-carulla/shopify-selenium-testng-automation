@@ -62,6 +62,27 @@ public class CheckOutTest extends BaseTest {
 
         enterShippingInformation(checkoutPage);
 
-//        Assert.assertEquals(checkoutPage.getSubtotal(), subtotal);
+        double shippingFeeLeft = checkoutPage.getShippingFeeLeft();
+        double shippingFeeRight = checkoutPage.getShippingFeeRight("£10.00");
+
+        Assert.assertEquals(shippingFeeLeft, shippingFeeRight);
+        Assert.assertEquals(shippingFeeRight, 10.0);
+    }
+
+    @Test
+    public void verifyCheckoutTotal(){
+        addProductsToCart("Grey jacket", "Bronze sandals", "Striped top");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        enterShippingInformation(checkoutPage);
+
+        double subtotal = checkoutPage.getSubtotal();
+        double shippingFeeRight = checkoutPage.getShippingFeeRight("£10.00");
+        double total  = checkoutPage.getTotal();
+
+        Assert.assertEquals(subtotal + shippingFeeRight, total);
     }
 }
