@@ -2,10 +2,14 @@ package tests;
 
 import base.BaseTest;
 import components.HeaderComponent;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.CheckoutPage;
+
+import java.util.List;
 
 public class CheckOutTest extends BaseTest {
     @Test
@@ -84,5 +88,27 @@ public class CheckOutTest extends BaseTest {
         double total  = checkoutPage.getTotal();
 
         Assert.assertEquals(subtotal + shippingFeeRight, total);
+    }
+
+    @Test
+    public void verifyRequiredFields(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.selectCountry("United Kingdom");
+        checkoutPage.placeOrder();
+
+        Assert.assertTrue(checkoutPage.isEmailErrorDisplayed(), "Email error is not displayed");
+        Assert.assertTrue(checkoutPage.isLastNameErrorDisplayed(), "Last name error is not displayed");
+        Assert.assertTrue(checkoutPage.isAddressErrorDisplayed(), "Address error is not displayed");
+        Assert.assertTrue(checkoutPage.isCityErrorDisplayed(), "City error is not displayed");
+        Assert.assertTrue(checkoutPage.isZipCodeErrorDisplayed(), "Zip Code error is not displayed");
+        Assert.assertTrue(checkoutPage.isCardNumberErrorDisplayed(), "Card Number error is not displayed");
+        Assert.assertTrue(checkoutPage.isCardExpiryErrorDisplayed(), "Card Expiry error is not displayed");
+        Assert.assertTrue(checkoutPage.isCardCVVErrorDisplayed(), "Card CVV error is not displayed");
+        Assert.assertTrue(checkoutPage.isCardNameErrorDisplayed(), "Card Name error is not displayed");
     }
 }

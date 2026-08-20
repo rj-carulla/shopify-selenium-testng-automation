@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.JavascriptExecutor;
 
+import java.security.KeyStore;
 import java.util.List;
 
 public class CheckoutPage extends BasePage {
@@ -18,6 +20,7 @@ public class CheckoutPage extends BasePage {
             "/ancestor::div[.//strong[normalize-space()='Standard Shipping']][1]" +
             "//*[contains(@id, '-secondary')]//strong");
 
+    private By infoContainer = By.xpath("//main[@id='checkout-main']");
     private By firstNameField = By.xpath("//input[@name='firstName']");
     private By lastNameField = By.xpath("//input[@name='lastName']");
     private By companyField = By.xpath("//input[@name='company']");
@@ -25,6 +28,23 @@ public class CheckoutPage extends BasePage {
     private By cityField = By.xpath("//input[@name='city']");
     private By postcodeField = By.xpath("//input[@name='postalCode']");
 
+    private By lastNameError = By.xpath("//div[@id='error-for-TextFieldP0-46']");
+    private By emailError = By.xpath("//div[@id='error-for-email']");
+    private By addressError = By.id("error-for-shipping-address1");
+    private By cityError = By.xpath(
+        "//*[@id=//input[@name='city' and not(@aria-hidden='true')]/@aria-describedby]"
+    );
+    private By zipCodeError = By.xpath(
+        "//*[@id=//input[@name='postalCode' and not(@aria-hidden='true')]/@aria-describedby]"
+    );
+    private By cardNumberError = By.xpath("//div[@id='error-for-number']");
+    private By cardExpiryError = By.xpath("//div[@id='error-for-expiry']");
+    private By cardCVVError = By.xpath("//div[@id='error-for-verification_value']");
+    private By cardNameError = By.xpath("//div[@id='error-for-name']");
+
+    private By payNowBtn = By.xpath("//button[@id='checkout-pay-button']");
+//    private By cityField =
+//            By.xpath("//input[@name='city' and not(@aria-hidden='true')]");
     //Constructor
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -84,20 +104,6 @@ public class CheckoutPage extends BasePage {
         return Double.parseDouble(shippingfee.replace("£", ""));
     }
 
-//    public double getTotal(){
-//        WebElement container = driver.findElement(productsContainer);
-//        WebElement TotalRow = container.findElement(
-//                By.xpath(
-//                        ".//*[@role='row'][.//*[@role='rowheader'][contains(normalize-space(), 'Total')]]"
-//                )
-//        );
-//
-//        String total = TotalRow
-//                .findElement(By.xpath(".//*[@role='cell']//span[contains(normalize-space(), '£')]"))
-//                .getText();
-//        System.out.println(total);
-//        return Double.parseDouble(total.replace("£", ""));
-//    }
     public double getTotal() {
         WebElement container = driver.findElement(productsContainer);
 
@@ -123,6 +129,54 @@ public class CheckoutPage extends BasePage {
                                 + productName + "']]"
                 )
         );
+    }
+
+    public boolean isFieldErrorDisplayed(By errorLocator){
+        WebElement container = driver.findElement(infoContainer);
+        return !container.findElements(errorLocator).isEmpty();
+    }
+
+    public boolean isEmailErrorDisplayed(){
+        return isFieldErrorDisplayed(emailError);
+    }
+
+    public boolean isLastNameErrorDisplayed(){
+        return isFieldErrorDisplayed(lastNameError);
+    }
+
+    public boolean isAddressErrorDisplayed(){
+        return isFieldErrorDisplayed(addressError);
+    }
+
+    public boolean isCityErrorDisplayed(){
+        return isFieldErrorDisplayed(cityError);
+    }
+
+    public boolean isZipCodeErrorDisplayed(){
+        return isFieldErrorDisplayed(zipCodeError);
+    }
+
+    public boolean isCardNumberErrorDisplayed(){
+        return isFieldErrorDisplayed(cardNumberError);
+    }
+
+    public boolean isCardExpiryErrorDisplayed(){
+        return isFieldErrorDisplayed(cardExpiryError);
+    }
+
+    public boolean isCardCVVErrorDisplayed(){
+        return isFieldErrorDisplayed(cardCVVError);
+    }
+
+    public boolean isCardNameErrorDisplayed(){
+        return isFieldErrorDisplayed(cardNameError);
+    }
+
+    public void placeOrder() {
+        WebElement payNow = driver.findElement(payNowBtn);
+        waitForElementClick(payNowBtn);
+        payNow.click();
+        waitForElementClick(payNowBtn);
     }
 
     // Checkout information helper methods
