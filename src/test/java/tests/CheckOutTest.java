@@ -111,4 +111,21 @@ public class CheckOutTest extends BaseTest {
         Assert.assertTrue(checkoutPage.isCardCVVErrorDisplayed(), "Card CVV error is not displayed");
         Assert.assertTrue(checkoutPage.isCardNameErrorDisplayed(), "Card Name error is not displayed");
     }
+
+    @Test
+    public void verifyInvalidEmail(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.selectCountry("United Kingdom");
+        checkoutPage.enterInvalidEmail("Test@invalid.");
+        checkoutPage.placeOrder();
+
+        Assert.assertTrue(checkoutPage.isInvalidEmailErrorDisplayed(), "Invalid Email error is not displayed");
+    }
+
+
 }

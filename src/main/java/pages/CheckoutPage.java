@@ -21,6 +21,7 @@ public class CheckoutPage extends BasePage {
             "//*[contains(@id, '-secondary')]//strong");
 
     private By infoContainer = By.xpath("//main[@id='checkout-main']");
+    private By emailField = By.xpath("//input[@name='email']");
     private By firstNameField = By.xpath("//input[@name='firstName']");
     private By lastNameField = By.xpath("//input[@name='lastName']");
     private By companyField = By.xpath("//input[@name='company']");
@@ -28,7 +29,7 @@ public class CheckoutPage extends BasePage {
     private By cityField = By.xpath("//input[@name='city']");
     private By postcodeField = By.xpath("//input[@name='postalCode']");
 
-    private By lastNameError = By.xpath("//div[@id='error-for-TextFieldP0-46']");
+    private By lastNameError = By.xpath("//div[@id='error-for-TextFieldP0-47']");
     private By emailError = By.xpath("//div[@id='error-for-email']");
     private By addressError = By.id("error-for-shipping-address1");
     private By cityError = By.xpath(
@@ -42,10 +43,9 @@ public class CheckoutPage extends BasePage {
     private By cardCVVError = By.xpath("//div[@id='error-for-verification_value']");
     private By cardNameError = By.xpath("//div[@id='error-for-name']");
 
+    private By invalidEmailError = By.xpath("//div[@id='error-for-email' and contains(normalize-space(), 'Enter a valid email')]");
+
     private By payNowBtn = By.xpath("//button[@id='checkout-pay-button']");
-//    private By cityField =
-//            By.xpath("//input[@name='city' and not(@aria-hidden='true')]");
-    //Constructor
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
@@ -172,6 +172,10 @@ public class CheckoutPage extends BasePage {
         return isFieldErrorDisplayed(cardNameError);
     }
 
+    public boolean isInvalidEmailErrorDisplayed(){
+        return isFieldErrorDisplayed(invalidEmailError);
+    }
+
     public void placeOrder() {
         WebElement payNow = driver.findElement(payNowBtn);
         waitForElementClick(payNowBtn);
@@ -209,5 +213,9 @@ public class CheckoutPage extends BasePage {
 
     public void enterPostalCode(String postcode){
         driver.findElement(postcodeField).sendKeys(postcode);
+    }
+
+    public void enterInvalidEmail(String invalidEmail){
+        driver.findElement(emailField).sendKeys(invalidEmail);
     }
 }
