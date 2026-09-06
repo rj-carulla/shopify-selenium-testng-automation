@@ -29,6 +29,11 @@ public class CheckoutPage extends BasePage {
     private By cityField = By.xpath("//input[@name='city']");
     private By postcodeField = By.xpath("//input[@name='postalCode']");
 
+    private By cardNumField = By.cssSelector("input[autocomplete='cc-number']");
+    private By expirationDateField = By.cssSelector("input[autocomplete='cc-exp']");
+    private By securityCodeField = By.cssSelector("input[autocomplete='cc-csc']");
+    private By cardNameField = By.cssSelector("input[autocomplete='cc-name']");
+
     private By lastNameError = By.xpath("//div[@id='error-for-TextFieldP0-47']");
     private By emailError = By.xpath("//div[@id='error-for-email']");
     private By addressError = By.id("error-for-shipping-address1");
@@ -44,6 +49,8 @@ public class CheckoutPage extends BasePage {
     private By cardNameError = By.xpath("//div[@id='error-for-name']");
 
     private By invalidEmailError = By.xpath("//div[@id='error-for-email' and contains(normalize-space(), 'Enter a valid email')]");
+    private By invalidCardNumError = By.xpath("//div[@id='error-for-number' and contains(normalize-space(), 'Enter a valid card number')]");
+    private By invalidExpDateError = By.xpath("//div[@id='error-for-expiry' and contains(normalize-space(), 'Enter a valid expiration date')]");
 
     private By payNowBtn = By.xpath("//button[@id='checkout-pay-button']");
     public CheckoutPage(WebDriver driver) {
@@ -176,6 +183,14 @@ public class CheckoutPage extends BasePage {
         return isFieldErrorDisplayed(invalidEmailError);
     }
 
+    public boolean isInvalidCardNumberErrorDisplayed(){
+        return isFieldErrorDisplayed(invalidCardNumError);
+    }
+
+    public boolean isInvalidExpirationDateErrorDisplayed(){
+        return isFieldErrorDisplayed(invalidExpDateError);
+    }
+
     public void placeOrder() {
         WebElement payNow = driver.findElement(payNowBtn);
         waitForElementClick(payNowBtn);
@@ -215,7 +230,47 @@ public class CheckoutPage extends BasePage {
         driver.findElement(postcodeField).sendKeys(postcode);
     }
 
-    public void enterInvalidEmail(String invalidEmail){
-        driver.findElement(emailField).sendKeys(invalidEmail);
+    public void enterEmail(String Email){
+        driver.findElement(emailField).sendKeys(Email);
+    }
+
+    public void enterCardNum(String cardNum){
+        WebElement iframe = driver.findElement(
+                By.cssSelector("iframe[title='Card number']")
+        );
+        driver.switchTo().frame(iframe);
+        driver.findElement(cardNumField).sendKeys(cardNum);
+        driver.switchTo().defaultContent();
+    }
+
+    public void enterExpirationDate(String expDate){
+        WebElement iframe = driver.findElement(
+                By.cssSelector("iframe[title='Expiration date (MM / YY)']")
+        );
+        driver.switchTo().frame(iframe);
+
+        for (char c : expDate.toCharArray()){
+            driver.findElement(expirationDateField).sendKeys(String.valueOf(c));
+        }
+
+        driver.switchTo().defaultContent();
+    }
+
+    public void enterSecurityCode(String securityNum){
+        WebElement iframe = driver.findElement(
+                By.cssSelector("iframe[title='Security code']")
+        );
+        driver.switchTo().frame(iframe);
+        driver.findElement(securityCodeField).sendKeys(securityNum);
+        driver.switchTo().defaultContent();
+    }
+
+    public void enterNameOnCard(String cardName){
+        WebElement iframe = driver.findElement(
+                By.cssSelector("iframe[title='Name on card']")
+        );
+        driver.switchTo().frame(iframe);
+        driver.findElement(cardNameField).sendKeys(cardName);
+        driver.switchTo().defaultContent();
     }
 }

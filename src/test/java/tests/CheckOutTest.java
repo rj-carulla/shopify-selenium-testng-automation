@@ -120,12 +120,45 @@ public class CheckOutTest extends BaseTest {
         CartPage cartPage = header.navigateToCartPage();
         CheckoutPage checkoutPage = cartPage.navigateToCheckout();
 
-        checkoutPage.selectCountry("United Kingdom");
-        checkoutPage.enterInvalidEmail("Test@invalid.");
+        checkoutPage.enterEmail("Test@invalid.");
         checkoutPage.placeOrder();
 
         Assert.assertTrue(checkoutPage.isInvalidEmailErrorDisplayed(), "Invalid Email error is not displayed");
     }
 
+    @Test
+    public void verifyInvalidCardNumber(){
+        addProductsToCart("Grey jacket");
 
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.enterEmail("Test@invalid.com");
+        enterShippingInformation(checkoutPage);
+        checkoutPage.enterCardNum("123");
+        checkoutPage.enterExpirationDate("0830");
+        checkoutPage.enterSecurityCode("123");
+        checkoutPage.placeOrder();
+
+        Assert.assertTrue(checkoutPage.isInvalidCardNumberErrorDisplayed(), "Invalid Card Number error is not displayed");
+    }
+
+    @Test
+    public void verifyInvalidExpirationDate(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.enterEmail("Test@invalid.com");
+        enterShippingInformation(checkoutPage);
+        checkoutPage.enterCardNum("2");
+        checkoutPage.enterExpirationDate("0802");
+        checkoutPage.enterSecurityCode("123");
+        checkoutPage.placeOrder();
+
+        Assert.assertTrue(checkoutPage.isInvalidExpirationDateErrorDisplayed(), "Invalid Expiration Date error is not displayed");
+    }
 }
