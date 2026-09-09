@@ -54,8 +54,9 @@ public class CheckoutPage extends BasePage {
     private By invalidSecurityCodeError = By.xpath("//div[@id='error-for-verification_value' and contains(normalize-space(), 'Enter the CVV or security code on your card')]");
 
     private By declinedMessage = By.xpath("//div[@id='PaymentErrorBanner']");
-
     private By payNowBtn = By.xpath("//button[@id='checkout-pay-button']");
+
+    //Constructor
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
@@ -283,5 +284,12 @@ public class CheckoutPage extends BasePage {
         driver.switchTo().frame(iframe);
         driver.findElement(cardNameField).sendKeys(cardName);
         driver.switchTo().defaultContent();
+    }
+
+    public ConfirmationPage completeCheckout(){
+        WebElement payNow = driver.findElement(payNowBtn);
+        waitForElementClick(payNowBtn);
+        payNow.click();
+        return  new ConfirmationPage(driver);
     }
 }

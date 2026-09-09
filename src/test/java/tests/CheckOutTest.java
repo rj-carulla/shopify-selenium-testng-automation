@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.CheckoutPage;
+import pages.ConfirmationPage;
 
 import java.util.List;
 
@@ -196,5 +197,24 @@ public class CheckOutTest extends BaseTest {
         checkoutPage.placeOrder();
 
         Assert.assertTrue(checkoutPage.isDeclinedMessageDisplayed(), "Declined Transaction message is not displayed");
+    }
+
+    @Test
+    public void verifySuccessfulCheckout(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.enterEmail("Test@gmail.com");
+        enterShippingInformation(checkoutPage);
+        checkoutPage.enterCardNum("1");
+        checkoutPage.enterExpirationDate("0829");
+        checkoutPage.enterSecurityCode("123");
+
+        ConfirmationPage confirmationPage = checkoutPage.completeCheckout();
+
+        Assert.assertTrue(confirmationPage.isConfirmationMessageDisplayed());
     }
 }
