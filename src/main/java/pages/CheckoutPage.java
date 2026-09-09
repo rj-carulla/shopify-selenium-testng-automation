@@ -51,6 +51,9 @@ public class CheckoutPage extends BasePage {
     private By invalidEmailError = By.xpath("//div[@id='error-for-email' and contains(normalize-space(), 'Enter a valid email')]");
     private By invalidCardNumError = By.xpath("//div[@id='error-for-number' and contains(normalize-space(), 'Enter a valid card number')]");
     private By invalidExpDateError = By.xpath("//div[@id='error-for-expiry' and contains(normalize-space(), 'Enter a valid expiration date')]");
+    private By invalidSecurityCodeError = By.xpath("//div[@id='error-for-verification_value' and contains(normalize-space(), 'Enter the CVV or security code on your card')]");
+
+    private By declinedMessage = By.xpath("//div[@id='PaymentErrorBanner']");
 
     private By payNowBtn = By.xpath("//button[@id='checkout-pay-button']");
     public CheckoutPage(WebDriver driver) {
@@ -189,6 +192,14 @@ public class CheckoutPage extends BasePage {
 
     public boolean isInvalidExpirationDateErrorDisplayed(){
         return isFieldErrorDisplayed(invalidExpDateError);
+    }
+
+    public boolean isInvalidSecurityCodeErrorDisplayed(){
+        return isFieldErrorDisplayed(invalidSecurityCodeError);
+    }
+
+    public boolean isDeclinedMessageDisplayed(){
+        return !driver.findElements(declinedMessage).isEmpty();
     }
 
     public void placeOrder() {

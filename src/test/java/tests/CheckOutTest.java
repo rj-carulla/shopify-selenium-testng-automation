@@ -161,4 +161,40 @@ public class CheckOutTest extends BaseTest {
 
         Assert.assertTrue(checkoutPage.isInvalidExpirationDateErrorDisplayed(), "Invalid Expiration Date error is not displayed");
     }
+
+    @Test
+    public void verifyInvalidSecurityCode(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.enterEmail("Test@invalid.com");
+        enterShippingInformation(checkoutPage);
+        checkoutPage.enterCardNum("2");
+        checkoutPage.enterExpirationDate("0829");
+        checkoutPage.enterSecurityCode("1");
+        checkoutPage.placeOrder();
+
+        Assert.assertTrue(checkoutPage.isInvalidSecurityCodeErrorDisplayed(), "Invalid Security Number/CVV error is not displayed");
+    }
+
+    @Test
+    public void verifyDeclinedTransaction(){
+        addProductsToCart("Grey jacket");
+
+        HeaderComponent header = new HeaderComponent(driver);
+        CartPage cartPage = header.navigateToCartPage();
+        CheckoutPage checkoutPage = cartPage.navigateToCheckout();
+
+        checkoutPage.enterEmail("Test@gmail.com");
+        enterShippingInformation(checkoutPage);
+        checkoutPage.enterCardNum("2");
+        checkoutPage.enterExpirationDate("0829");
+        checkoutPage.enterSecurityCode("123");
+        checkoutPage.placeOrder();
+
+        Assert.assertTrue(checkoutPage.isDeclinedMessageDisplayed(), "Declined Transaction message is not displayed");
+    }
 }
