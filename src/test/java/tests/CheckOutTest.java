@@ -201,7 +201,7 @@ public class CheckOutTest extends BaseTest {
 
     @Test
     public void verifySuccessfulCheckout(){
-        addProductsToCart("Grey jacket");
+        addProductsToCart("Grey jacket", "Bronze sandals");
 
         HeaderComponent header = new HeaderComponent(driver);
         CartPage cartPage = header.navigateToCartPage();
