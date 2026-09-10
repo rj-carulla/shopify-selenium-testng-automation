@@ -106,9 +106,8 @@ Validates that a product can be selected from the catalog and added to the cart.
 
 ### Demo
 
-> https://github.com/user-attachments/assets/0bb3992d-007c-4208-aea6-45206d3c05d1
+> [▶️ Watch Demo](https://youtu.be/gwhRyMrN9JM)
 
-> [▶️ Watch Demo](./demos/1.mp4)
 ```text
 📹 Add to Cart Test
 ```
@@ -133,9 +132,7 @@ The test verifies validation errors for fields including:
 
 ### Demo
 
-> https://github.com/user-attachments/assets/b9ffd263-646a-4983-8558-03dc634c5109
-
-> [▶️ Watch Demo](./demos/2.mp4) 
+> [▶️ Watch Demo](https://youtu.be/7WlLfsRsruM)
 
 ```text
 📹 Required Field Validation
@@ -160,9 +157,7 @@ The test verifies that the checkout successfully reaches the confirmation page.
 
 ### Demo
 
-> https://github.com/user-attachments/assets/13eed6bf-6066-4cea-8314-ce83d3cdb0a0
-
-> [▶️ Watch Demo](./demos/3.mp4)
+> [▶️ Watch Demo](https://youtu.be/8-WhxSXeRMA)
 
 ```text
 📹 Successful Checkout
@@ -182,9 +177,7 @@ The checkout environment provides specific test values to simulate different pay
 
 ### Declined Transaction/Gateway Failure
 
-> https://github.com/user-attachments/assets/9aa9ed7e-b174-4cab-bfab-6250839cb6b0
-
-> [▶️ Watch Demo](./demos/4.mp4)
+> [▶️ Watch Demo](https://youtu.be/lZrLSSvNId0)
 
 ```text
 📹 Declined Transaction
