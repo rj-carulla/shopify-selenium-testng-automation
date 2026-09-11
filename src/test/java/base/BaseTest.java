@@ -16,8 +16,9 @@ public class BaseTest {
     protected WebDriver driver;
     @BeforeMethod
     public void setup(){
-//        driver = new ChromeDriver();
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
+//        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
         driver.get("https://sauce-demo.myshopify.com/");
     }
 
